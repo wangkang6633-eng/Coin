@@ -12,8 +12,7 @@ public class Game {
 
     public void play() {
         Scanner s = new Scanner(System.in);
-        System.out.println("How much would you like to risk?");
-        int risk = s.nextInt();
+        int risk = getRisk();
         System.out.println("Heads or tails?");
         String guess = s.next().toLowerCase();
         boolean correct = player.flip(coin, guess, risk);
@@ -29,7 +28,20 @@ public class Game {
         if (balance > 0) {
             play();
         } else {
-            System.out.println("GAME OVER");10
+            System.out.println("GAME OVER");
+        }
+    }
+
+    public int getRisk() {
+        Scanner s = new Scanner(System.in);
+        System.out.println("How much would you like to risk?");
+        int risk = s.nextInt();
+
+        if (risk <= player.getBalance()) {
+            return risk;
+        } else {
+            System.out.println("Your risk exceeds your balance. Please try again.");
+            return getRisk();
         }
     }
 }
